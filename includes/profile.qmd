@@ -1,0 +1,21 @@
+::: {.profile-margin aria-labelledby="profile-name"}
+<img class="profile-avatar" src="/assets/david-avatar.png" alt="Illustrated portrait of David" width="112" height="112">
+
+<p class="profile-kicker">The person in the margin</p>
+
+<p id="profile-name" class="profile-name">David</p>
+
+<p class="profile-role">Software engineering student · Waterloo</p>
+
+<p class="profile-bio">Hi, I’m David. I’m a software engineering student at the University of Waterloo, learning how modern AI systems work by building smaller versions myself. TalkingML is my public notebook for explanations, experiments, and the occasional wrong turn.</p>
+
+<nav class="profile-links" aria-label="David's links">
+[GitHub <span aria-hidden="true">↗</span>](https://github.com/estrindavid){.profile-link aria-label="David on GitHub"}
+[RSS](/index.xml){.profile-link aria-label="TalkingML RSS feed"}
+</nav>
+
+<div class="profile-stat" aria-label="TalkingML total views">
+  <span class="profile-stat-value" data-total-views>Loading views…</span>
+  <span class="profile-stat-label" data-views-label>total views</span>
+</div>
+:::

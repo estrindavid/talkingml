@@ -1,0 +1,20 @@
+---
+title: Page not found
+description: "The requested TalkingML page could not be found."
+page-layout: full
+body-classes: not-found-page editorial-page
+canonical-url: false
+search: false
+include-in-header:
+  - includes/noindex.html
+---
+
+::: {.not-found-card}
+<p class="not-found-code" aria-hidden="true">404</p>
+
+# This page wandered out of the notebook.
+
+The link may be old, or the note may have moved. The rest of TalkingML is still right where you left it.
+
+[Return to the notes](/){.not-found-link}
+:::

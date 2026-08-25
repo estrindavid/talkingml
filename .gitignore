@@ -1,0 +1,10 @@
+_site/
+.quarto/
+.wrangler/
+.wrangler.log
+node_modules/
+*.tsbuildinfo
+.DS_Store
+**/*.quarto_ipynb
+
+/.quarto/

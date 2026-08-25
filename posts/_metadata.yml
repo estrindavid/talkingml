@@ -1,0 +1,12 @@
+format:
+  html:
+    toc: true
+    toc-location: right
+    reference-location: margin
+    citation-location: margin
+    code-copy: true
+    code-overflow: wrap
+page-layout: article
+body-classes: article-page
+title-block-banner: false
+

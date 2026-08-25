@@ -1,0 +1,35 @@
+---
+title: TalkingML
+description: "Explanations, experiments, and build notes from learning how modern AI systems work."
+page-layout: full
+body-classes: home-page editorial-page
+listing:
+  id: notes-list
+  contents:
+    - posts
+    - data/empty-listing.yml
+  sort: "date desc"
+  template: templates/notes.ejs.md
+  feed:
+    type: metadata
+    title: TalkingML
+    description: "Explanations and experiments while learning how modern AI systems work."
+---
+
+::: {.editorial-shell}
+{{< include includes/profile.qmd >}}
+
+::: {.notes-panel}
+<p class="section-kicker">A public learning notebook</p>
+
+# Notes on learning how AI works {#notes-heading}
+
+<p class="notes-intro">Small explanations, experiments, and build notes—written while the ideas are still becoming clear.</p>
+
+<div class="editorial-rule" aria-hidden="true"><span></span></div>
+
+::: {#notes-list aria-labelledby="notes-heading"}
+:::
+:::
+:::
+

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://talkingml.com/sitemap.xml

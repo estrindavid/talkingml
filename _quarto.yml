@@ -1,0 +1,64 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - /index.qmd
+    - /about.qmd
+    - /404.qmd
+    - /posts/**/*.qmd
+  post-render:
+    - node scripts/normalize-output.mjs
+  resources:
+    - /assets/**
+    - /scripts/views.js
+    - /robots.txt
+
+website:
+  title: TalkingML
+  site-url: https://talkingml.com
+  description: "David's public notebook for explanations and experiments while learning how modern AI systems work."
+  favicon: /assets/david-avatar.png
+  image: /assets/david-avatar.png
+  search: false
+  open-graph:
+    locale: en_US
+  twitter-card:
+    card-style: summary
+  navbar:
+    title: TalkingML
+    collapse: true
+    right:
+      - href: /
+        text: Notes
+      - href: about.qmd
+        text: About
+      - href: https://github.com/estrindavid
+        text: GitHub
+  page-footer:
+    border: true
+    left: "© 2026 David · TalkingML"
+    center: '<span class="footer-view-count"><span data-total-views>Loading views…</span> <span data-views-label>total views</span></span>'
+    right:
+      - text: RSS
+        href: /index.xml
+
+format:
+  html:
+    theme:
+      - default
+      - styles.scss
+    canonical-url: true
+    code-copy: true
+    code-overflow: wrap
+    link-external-newwindow: true
+    smooth-scroll: true
+    toc: true
+    toc-location: right
+    include-in-header: includes/head.html
+    grid:
+      sidebar-width: 240px
+      body-width: 720px
+      margin-width: 240px
+      gutter-width: 2rem
+
+lang: en
