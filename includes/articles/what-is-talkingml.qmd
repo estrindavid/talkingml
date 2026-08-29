@@ -8,7 +8,7 @@ The blog will be separated into 2 sections:
 
 - crazy cool interviews
 
-  ![chatting with cracked ML researchers](/posts/what-is-talkingml/assets/screenshot-2026-08-27-at-3-29-52-pm-b5f944f7.png){fig-alt="chatting with cracked ML researchers" width="40%" fig-align="center"}
+  ![chatting with cracked ml researchers](/posts/what-is-talkingml/assets/screenshot-2026-08-27-at-3-29-52-pm-b5f944f7.png){fig-alt="chatting with cracked ml researchers" width="40%" fig-align="center"}
 - me documenting my journey going from 0 to "cracked"
 
   ![me locked in at yc startup school 26](/posts/what-is-talkingml/assets/img-3778-0ccc8593.png){fig-alt="me locked in at yc startup school 26" width="40%" fig-align="center"}
