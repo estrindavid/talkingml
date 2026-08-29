@@ -4,6 +4,16 @@
   "main": "src/index.ts",
   "compatibility_date": "2026-08-25",
   "compatibility_flags": ["nodejs_compat"],
+  "routes": [
+    {
+      "pattern": "talkingml.com",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.talkingml.com",
+      "custom_domain": true
+    }
+  ],
   "assets": {
     "directory": "./_site",
     "binding": "ASSETS",
@@ -14,12 +24,13 @@
   "d1_databases": [
     {
       "binding": "VIEWS_DB",
-      "database_name": "talkingml-views-local",
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_name": "talkingml-views",
+      "database_id": "82b559a3-a676-4a9b-903a-b86a230e77ec",
       "migrations_dir": "migrations"
     }
   ],
   "observability": {
-    "enabled": false
+    "enabled": true,
+    "head_sampling_rate": 1
   }
 }

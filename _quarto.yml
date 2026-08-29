@@ -16,6 +16,8 @@ project:
     - /scripts/views.js
     - /robots.txt
 
+author: David Estrine
+
 website:
   title: TalkingML
   site-url: https://talkingml.com

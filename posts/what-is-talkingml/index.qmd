@@ -1,6 +1,7 @@
 ---
 title: What Is TalkingML?
 description: Meet David Estrine and discover TalkingML, a public notebook documenting his machine-learning journey and interviews with talented ML researchers.
+author: David Estrine
 date: 2026-08-27
 categories:
   - About

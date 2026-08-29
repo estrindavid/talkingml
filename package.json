@@ -10,7 +10,9 @@
   "scripts": {
     "build": "quarto render",
     "check": "npm run types:check && npm run typecheck && npm run build && npm run validate:site && npm test && npm run deploy:dry-run",
-    "db:migrate:local": "WRANGLER_LOG_PATH=.wrangler.log wrangler d1 migrations apply talkingml-views-local --local",
+    "db:migrate:local": "WRANGLER_LOG_PATH=.wrangler.log wrangler d1 migrations apply VIEWS_DB --local",
+    "db:migrate:remote": "WRANGLER_LOG_PATH=.wrangler.log wrangler d1 migrations apply VIEWS_DB --remote",
+    "deploy": "npm run db:migrate:remote && WRANGLER_LOG_PATH=.wrangler.log wrangler deploy",
     "deploy:dry-run": "WRANGLER_LOG_PATH=.wrangler.log wrangler deploy --dry-run",
     "dev": "WRANGLER_LOG_PATH=.wrangler.log wrangler dev",
     "preview": "quarto preview",
