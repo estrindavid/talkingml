@@ -95,6 +95,11 @@ for (const [name, html] of [
     !html.includes("fonts.googleapis.com"),
     `${name} unexpectedly loads Google Fonts`,
   );
+  check(
+    html.includes('href="https://se-webring.xyz/"') &&
+      html.includes("SE Webring"),
+    `${name} footer is missing the SE Webring link`,
+  );
 }
 
 for (const label of ["Progress", "Interviews", "About"]) {

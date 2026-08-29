@@ -47,6 +47,8 @@ website:
     right:
       - text: RSS
         href: /index.xml
+      - text: SE Webring
+        href: https://se-webring.xyz/
 
 format:
   html:
