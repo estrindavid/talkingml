@@ -8,7 +8,7 @@
 <nav class="profile-links" aria-label="David's links">
 <a class="profile-link" href="https://github.com/estrindavid" aria-label="David on GitHub">GitHub <span aria-hidden="true">↗</span></a>
 <a class="profile-link" href="https://ca.linkedin.com/in/estrinedavid" aria-label="David on LinkedIn">LinkedIn <span aria-hidden="true">↗</span></a>
-<a class="profile-link" href="https://x.com/estrindavid" aria-label="David on X">X <span aria-hidden="true">↗</span></a>
+<a class="profile-link" href="https://x.com/DavidEstrine" aria-label="David on X">X <span aria-hidden="true">↗</span></a>
 <a class="profile-link" href="https://www.youtube.com/@DavidEstrine/videos" aria-label="David on YouTube">YouTube <span aria-hidden="true">↗</span></a>
 <a class="profile-link" href="/assets/david-estrine-resume.pdf" aria-label="Read David Estrine's resume">Resume <span aria-hidden="true">↗</span></a>
 <a class="profile-link" href="https://cal.com/david-estrine-xsm6wb" aria-label="Book a chat with David">Book a chat <span aria-hidden="true">↗</span></a>

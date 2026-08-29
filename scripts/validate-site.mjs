@@ -151,6 +151,16 @@ check(
     index.includes("David on YouTube"),
   "homepage profile is missing David's YouTube link",
 );
+for (const [name, html] of [
+  ["homepage", index],
+  ["About page", about],
+]) {
+  check(
+    html.includes('href="https://x.com/DavidEstrine"') &&
+      !html.includes('href="https://x.com/estrindavid"'),
+    `${name} X link does not point to DavidEstrine`,
+  );
+}
 check(
   index.includes('href="https://cal.com/david-estrine-xsm6wb"') &&
     index.includes("Book a chat"),
@@ -306,6 +316,21 @@ check(
     firstArticle.includes("The blog will be separated into 2 sections:") &&
       firstArticle.includes("estrinedavid@gmail.com"),
     "standalone first article no longer renders the shared article body",
+  );
+  for (const [name, html] of [
+    ["homepage", index],
+    ["standalone first article", firstArticle],
+  ]) {
+    check(
+      (html.match(/class="article-figure-left"/g) ?? []).length === 2,
+      `${name} must shift exactly the two selected figure groups`,
+    );
+  }
+  check(
+    /@media\s*\(min-width:\s*901px\)[\s\S]*?\.article-figure-left\s*\{[\s\S]*?transform:\s*translateX\(calc\(-1\s*\*\s*clamp\(/.test(
+      sourceStyles,
+    ),
+    "selected article figures do not shift left on desktop",
   );
   check(
     index.includes(

@@ -555,6 +555,12 @@ a.notebook-index-item:hover::after {
   text-align: center;
 }
 
+@media (min-width: 901px) {
+  .article-figure-left {
+    transform: translateX(calc(-1 * clamp(1rem, 2.5vw, 2rem)));
+  }
+}
+
 .notes-empty {
   position: relative;
   max-width: 38rem;
