@@ -5,7 +5,6 @@ project:
     - /index.qmd
     - /about.qmd
     - /progress.qmd
-    - /notes.qmd
     - /interviews.qmd
     - /404.qmd
     - /posts/**/*.qmd
@@ -39,8 +38,6 @@ website:
         text: Progress
       - href: interviews.qmd
         text: Interviews
-      - href: notes.qmd
-        text: Notes
       - href: about.qmd
         text: About
   page-footer:

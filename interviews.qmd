@@ -6,11 +6,8 @@ body-classes: interviews-page archive-page editorial-page
 ---
 
 ::: {.section-page-shell .interviews-empty-shell}
-::: {.archive-empty aria-labelledby="interviews-empty-title"}
-<p class="archive-empty-number" aria-hidden="true">00</p>
-
-# Oops, there are no interviews here yet :/ {#interviews-empty-title}
-
-The first conversation is still being prepared. In the meantime, the [latest article is open on the homepage](/).
+::: {.interviews-quiet-empty aria-label="No interviews yet"}
+<p>Oops, there are no interviews here yet.</p>
+<p>The first conversation is still being prepared. [Read the most recent article on the homepage](/).</p>
 :::
 :::

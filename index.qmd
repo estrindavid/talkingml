@@ -36,13 +36,8 @@ listing:
 <strong>Interviews</strong>
 <small>Conversations with people doing the work.</small>
 </a>
-<a id="notes-lane" class="notebook-index-item" href="/notes">
-<span class="notebook-index-number">03</span>
-<strong>Notes</strong>
-<small>Explanations, experiments, and useful detours.</small>
-</a>
 <a id="about-lane" class="notebook-index-item" href="/about">
-<span class="notebook-index-number">04</span>
+<span class="notebook-index-number">03</span>
 <strong>About me</strong>
 <small>The student behind TalkingML.</small>
 </a>

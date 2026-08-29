@@ -371,7 +371,7 @@ button:focus-visible,
 
 .notebook-index {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-top: 3.2rem;
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
@@ -853,7 +853,30 @@ a.notebook-index-item:hover::after {
 }
 
 .interviews-empty-shell {
-  max-width: 48rem;
+  max-width: 42rem;
+  margin-top: clamp(2rem, 5vw, 4rem);
+}
+
+.interviews-quiet-empty {
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+
+.interviews-quiet-empty p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.interviews-quiet-empty p:first-child {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.interviews-quiet-empty p + p {
+  margin-top: 0.45rem;
 }
 
 .listing-title {

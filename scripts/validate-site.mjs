@@ -45,12 +45,11 @@ const sourcePostEntries = await readdir(path.resolve("posts"), {
 });
 const hasSourcePosts = sourcePostEntries.some((entry) => entry.isDirectory());
 
-const [index, about, progress, notes, interviews, notFound, firstArticle, feed, sitemap, viewsScript, progressScript, robots] =
+const [index, about, progress, interviews, notFound, firstArticle, feed, sitemap, viewsScript, progressScript, robots] =
   await Promise.all([
     readOutput("index.html"),
     readOutput("about.html"),
     readOutput("progress.html").catch(() => ""),
-    readOutput("notes.html").catch(() => ""),
     readOutput("interviews.html").catch(() => ""),
     readOutput("404.html"),
     readOutput("posts/what-is-talkingml/index.html"),
@@ -75,7 +74,6 @@ for (const [name, html] of [
   ["homepage", index],
   ["About page", about],
   ["Progress page", progress],
-  ["Notes page", notes],
   ["Interviews page", interviews],
   ["404 page", notFound],
 ]) {
@@ -97,7 +95,7 @@ for (const [name, html] of [
   );
 }
 
-for (const label of ["Progress", "Interviews", "Notes", "About"]) {
+for (const label of ["Progress", "Interviews", "About"]) {
   check(
     index.includes(`<span class="menu-text">${label}</span>`),
     `homepage navigation is missing ${label}`,
@@ -161,7 +159,7 @@ check(
     !index.includes("Calendar <small>soon</small>"),
   "homepage profile still renders pending social links",
 );
-for (const section of ["progress-lane", "interviews", "notes-lane", "about-lane"]) {
+for (const section of ["progress-lane", "interviews", "about-lane"]) {
   check(
     index.includes(`id="${section}"`),
     `homepage is missing the ${section} editorial column`,
@@ -176,10 +174,6 @@ check(
     '<a id="interviews" class="notebook-index-item" href="./interviews">',
   ),
   "homepage Interviews column does not link to the Interviews page",
-);
-check(
-  index.includes('<a id="notes-lane" class="notebook-index-item" href="./notes">'),
-  "homepage Notes column does not link to the Notes page",
 );
 check(
   !index.includes("<pre><code>&lt;span class=\"notebook-index-number\"&gt;02"),
@@ -356,21 +350,9 @@ check(
   "Progress page should not render the profile block",
 );
 check(
-  notes.includes("Oops, there are no notes here yet :/") &&
-    notes.includes('data-archive-state="empty"'),
-  "Notes page is missing its empty state",
-);
-check(
-  notes.includes('rel="canonical" href="https://talkingml.com/notes"'),
-  "Notes canonical URL is missing or incorrect",
-);
-check(
-  !notes.includes('class="profile-margin"'),
-  "Notes page should not render the profile block",
-);
-check(
-  interviews.includes("Oops, there are no interviews here yet :/"),
-  "Interviews page is missing the approved empty-state message",
+  interviews.includes("Oops, there are no interviews here yet.") &&
+    interviews.includes("Read the most recent article on the homepage"),
+  "Interviews page is missing the approved quiet empty state",
 );
 check(
   interviews.includes('rel="canonical" href="https://talkingml.com/interviews"'),
@@ -436,10 +418,6 @@ check(
 check(
   sitemap.includes("https://talkingml.com/progress"),
   "sitemap is missing the Progress page",
-);
-check(
-  sitemap.includes("https://talkingml.com/notes"),
-  "sitemap is missing the Notes page",
 );
 check(
   !sitemap.includes(".html</loc>"),
@@ -537,7 +515,7 @@ const htmlFiles = topLevelFiles
   .sort();
 check(
   JSON.stringify(htmlFiles) ===
-    JSON.stringify(["404.html", "about.html", "index.html", "interviews.html", "notes.html", "progress.html"]),
+    JSON.stringify(["404.html", "about.html", "index.html", "interviews.html", "progress.html"]),
   `unexpected generated HTML pages: ${htmlFiles.join(", ")}`,
 );
 
@@ -545,7 +523,6 @@ for (const [name, html] of [
   ["homepage", index],
   ["About page", about],
   ["Progress page", progress],
-  ["Notes page", notes],
   ["Interviews page", interviews],
   ["404 page", notFound],
 ]) {
