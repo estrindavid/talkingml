@@ -54,7 +54,7 @@ listing:
 <p class="expanded-first-kicker">Now reading · First article</p>
 <h2 id="expanded-first-title">What Is TalkingML?</h2>
 <div class="expanded-first-meta-row">
-<p class="expanded-first-meta">Published August 27, 2026</p>
+<p class="expanded-first-meta">Published August 29, 2026</p>
 <p class="expanded-first-view-count" data-home-article-view-count data-article-path="/posts/what-is-talkingml/" hidden><span data-article-views>0</span> <span data-views-label>views</span></p>
 </div>
 </div>

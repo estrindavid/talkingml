@@ -15,9 +15,6 @@
       <p class="archive-item-date"><span class="listing-date"><%- item.date %></span></p>
     <% } %>
       <h2><a class="listing-title" href="<%- item.path %>"><%- item.title %></a></h2>
-    <% if (item.description) { %>
-      <p class="listing-description"><%- item.description %></p>
-    <% } %>
       <a class="note-read-link" href="<%- item.path %>">Read article <span aria-hidden="true">→</span></a>
     </div>
   </article>

@@ -6,6 +6,8 @@ const outputDirectory = path.resolve("_site");
 const failures = [];
 let checkCount = 0;
 
+const sourceStyles = await readFile(path.resolve("styles.scss"), "utf8");
+
 const check = (condition, message) => {
   checkCount += 1;
   if (!condition) failures.push(message);
@@ -340,6 +342,31 @@ check(
     progress.includes('href="/posts/what-is-talkingml/"') &&
     progress.includes("What Is TalkingML?"),
   "Progress page does not list the first Progress article",
+);
+check(
+  !progress.includes("<h1>Progress</h1>") &&
+    !progress.includes("Build logs and notes from what I’m learning now."),
+  "Progress page still renders the removed large heading or description",
+);
+check(
+  progress.includes('class="section-kicker progress-kicker"') &&
+    progress.includes('<span class="listing-date">Aug 29, 2026</span>'),
+  "Progress page is missing the compact kicker or current article date",
+);
+check(
+  !progress.includes('class="listing-description"'),
+  "Progress archive still renders article descriptions",
+);
+check(
+  index.includes("Published August 29, 2026") &&
+    firstArticle.includes("August 29, 2026"),
+  "first article date is not current on the homepage and article page",
+);
+check(
+  /\.article-page\s+\.quarto-title-block\s+\.description\s*\{[\s\S]*?display:\s*none;[\s\S]*?\}/.test(
+    sourceStyles,
+  ),
+  "article title-block descriptions are not hidden",
 );
 check(
   progress.includes('rel="canonical" href="https://talkingml.com/progress"'),

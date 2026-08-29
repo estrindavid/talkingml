@@ -15,13 +15,7 @@ listing:
 ---
 
 ::: {.section-page-shell}
-::: {.archive-header}
-<p class="section-kicker">Progress</p>
-
-# Progress
-
-Build logs and notes from what I’m learning now.
-:::
+<p class="section-kicker progress-kicker">Progress</p>
 
 ::: {#progress-list aria-label="Progress articles"}
 :::

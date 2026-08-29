@@ -780,11 +780,15 @@ a.notebook-index-item:hover::after {
   border-bottom: 1px solid var(--rule);
 }
 
+.progress-kicker {
+  margin-bottom: 1rem;
+}
+
 .archive-item {
   display: grid;
-  grid-template-columns: 3rem minmax(0, 1fr);
-  gap: clamp(1rem, 3vw, 2rem);
-  padding: clamp(2rem, 5vw, 3.2rem) 0;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1.15rem 0;
   border-bottom: 1px solid var(--rule);
 }
 
@@ -803,22 +807,33 @@ a.notebook-index-item:hover::after {
 }
 
 .archive-item-date {
-  margin: 0 0 0.75rem;
+  margin: 0;
+}
+
+.archive-item-copy {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 1rem;
 }
 
 .archive-item h2 {
   margin: 0;
   border: 0;
   font-family: var(--serif);
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 520;
+  font-size: 1.25rem;
+  font-weight: 600;
   letter-spacing: 0;
-  line-height: 1.05;
+  line-height: 1.25;
 }
 
 .archive-item .listing-description {
   max-width: 40rem;
   margin: 1rem 0;
+}
+
+.archive-item .note-read-link {
+  white-space: nowrap;
 }
 
 .archive-empty {
@@ -1047,6 +1062,10 @@ a.notebook-index-item:hover::after {
   font-size: 4.8rem;
   font-weight: 500;
   line-height: 0.98;
+}
+
+.article-page .quarto-title-block .description {
+  display: none;
 }
 
 .article-page main.content > p,
@@ -1328,6 +1347,15 @@ footer.footer .nav-footer-right {
 
   .expanded-first-header h2 {
     font-size: 2.35rem;
+  }
+
+  .archive-item-copy {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.45rem 0.8rem;
+  }
+
+  .archive-item-date {
+    grid-column: 1 / -1;
   }
 
   .margin-note {
