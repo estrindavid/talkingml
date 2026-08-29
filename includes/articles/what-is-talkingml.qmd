@@ -13,7 +13,7 @@ The blog will be separated into 2 sections:
 
   ![me locked in at yc startup school 26](/posts/what-is-talkingml/assets/img-3778-0ccc8593.png){fig-alt="me locked in at yc startup school 26" width="40%" fig-align="center"}
 
-soo... go check out my latest progress in my journey [here](</posts/what-is-talkingml/>)
+soo... go check out my latest progress in my journey [here](</progress>)
 
 and if you wanna see some crazy interviews check out the latest one [here](</interviews>)
 

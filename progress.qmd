@@ -1,0 +1,24 @@
+---
+title: Progress
+description: "Build logs and notes from David's machine-learning journey."
+page-layout: full
+body-classes: progress-page editorial-page
+---
+
+::: {.editorial-shell .progress-shell}
+{{< include includes/profile.qmd >}}
+
+::: {.progress-panel}
+<p class="section-kicker">Progress</p>
+
+# What I’m building and learning. {#progress-heading}
+
+::: {.interviews-empty aria-labelledby="progress-empty-title"}
+<p class="interviews-empty-number" aria-hidden="true">00</p>
+
+## Oops, there are no progress logs here yet :/ {#progress-empty-title}
+
+The first build log is still being prepared. In the meantime, [read the first TalkingML article](/posts/what-is-talkingml/).
+:::
+:::
+:::

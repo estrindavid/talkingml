@@ -26,7 +26,7 @@ listing:
 
 ```{=html}
 <div class="notebook-index" aria-label="TalkingML sections">
-<a id="progress" class="notebook-index-item" href="/posts/what-is-talkingml/">
+<a id="progress-lane" class="notebook-index-item" href="/progress">
 <span class="notebook-index-number">01</span>
 <strong>Progress</strong>
 <small>Build logs and what I am learning now.</small>

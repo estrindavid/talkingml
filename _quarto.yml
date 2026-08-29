@@ -4,6 +4,7 @@ project:
   render:
     - /index.qmd
     - /about.qmd
+    - /progress.qmd
     - /interviews.qmd
     - /404.qmd
     - /posts/**/*.qmd
@@ -33,7 +34,7 @@ website:
     title: TalkingML
     collapse: true
     right:
-      - href: /#progress
+      - href: progress.qmd
         text: Progress
       - href: interviews.qmd
         text: Interviews

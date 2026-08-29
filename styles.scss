@@ -310,6 +310,7 @@ button:focus-visible,
 
 .notes-panel,
 .about-panel,
+.progress-panel,
 .interviews-panel {
   min-width: 0;
   padding-top: 0.35rem;
@@ -674,10 +675,12 @@ a.notebook-index-item:hover::after {
   line-height: 1.08;
 }
 
+.progress-panel,
 .interviews-panel {
   max-width: 46rem;
 }
 
+.progress-panel #progress-heading > h1,
 .interviews-panel #interviews-heading > h1 {
   max-width: 12ch;
   margin: 0;
@@ -1060,6 +1063,7 @@ footer.footer .nav-footer-right {
   }
 
   .about-panel #about-heading > h1,
+  .progress-panel #progress-heading > h1,
   .interviews-panel #interviews-heading > h1 {
     font-size: 4.8rem;
   }
@@ -1127,6 +1131,7 @@ footer.footer .nav-footer-right {
 
   .notes-panel#notes-heading > h1,
   .about-panel #about-heading > h1,
+  .progress-panel #progress-heading > h1,
   .interviews-panel #interviews-heading > h1 {
     font-size: 2.9rem;
     line-height: 0.96;
