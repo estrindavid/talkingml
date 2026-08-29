@@ -20,7 +20,7 @@ listing:
 {{< include includes/profile.qmd >}}
 
 ::: {.notes-panel}
-# Let’s learn how AI systems work together. {#notes-heading}
+# Let’s learn about AI together. {#notes-heading}
 
 <p class="notes-intro">A UWaterloo software engineering student’s blog.</p>
 

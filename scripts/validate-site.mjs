@@ -117,8 +117,8 @@ check(
   "homepage still renders the rejected field-signal decoration",
 );
 check(
-  index.includes("Let’s learn how AI systems work together."),
-  "homepage is missing the approved learning-together heading",
+  index.includes("Let’s learn about AI together."),
+  "homepage is missing the approved AI-together heading",
 );
 check(
   index.includes("data-site-view-count"),
