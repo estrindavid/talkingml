@@ -4,12 +4,15 @@ project:
   render:
     - /index.qmd
     - /about.qmd
+    - /interviews.qmd
     - /404.qmd
     - /posts/**/*.qmd
   post-render:
     - node scripts/normalize-output.mjs
   resources:
     - /assets/**
+    - /scripts/carousel.js
+    - /scripts/reading-progress.js
     - /scripts/views.js
     - /robots.txt
 
@@ -28,16 +31,18 @@ website:
     title: TalkingML
     collapse: true
     right:
-      - href: /
+      - href: /#progress
+        text: Progress
+      - href: interviews.qmd
+        text: Interviews
+      - href: /#notes
         text: Notes
       - href: about.qmd
         text: About
-      - href: https://github.com/estrindavid
-        text: GitHub
   page-footer:
     border: true
-    left: "© 2026 David · TalkingML"
-    center: '<span class="footer-view-count"><span data-total-views>Loading views…</span> <span data-views-label>total views</span></span>'
+    left: '<span class="footer-wordmark">TalkingML<span aria-hidden="true">.</span></span>'
+    center: "© 2026 David Estrine. All rights reserved."
     right:
       - text: RSS
         href: /index.xml

@@ -1,4 +1,5 @@
 const VIEWS_PATH = "/api/views";
+const ARTICLE_VIEW_KEY_PREFIX = "page:";
 const TOTAL_VIEWS_KEY = "total_views";
 
 function json(
@@ -29,6 +30,31 @@ function isExplicitlyCrossOrigin(request: Request): boolean {
   }
 }
 
+function articlePathFor(url: URL): string | null {
+  const path = url.searchParams.get("path");
+
+  if (
+    !path ||
+    !path.startsWith("/posts/") ||
+    !path.endsWith("/") ||
+    path.includes("//") ||
+    path.includes("..")
+  ) {
+    return null;
+  }
+
+  try {
+    const parsed = new URL(path, url.origin);
+    if (parsed.origin !== url.origin || parsed.pathname !== path) {
+      return null;
+    }
+  } catch {
+    return null;
+  }
+
+  return path;
+}
+
 export default {
   async fetch(request, env): Promise<Response> {
     const url = new URL(request.url);
@@ -51,22 +77,67 @@ export default {
       return json({ error: "cross_origin_forbidden" }, 403);
     }
 
+    const hasArticlePath = url.searchParams.has("path");
+    const articlePath = articlePathFor(url);
+
+    if (hasArticlePath && !articlePath) {
+      return json({ error: "invalid_article_path" }, 400);
+    }
+
     try {
-      if (request.method === "GET") {
-        const row = await env.VIEWS_DB.prepare(
-          "SELECT value FROM site_stats WHERE key = ?1",
-        )
-          .bind(TOTAL_VIEWS_KEY)
-          .first<{ value: number }>();
+      if (!articlePath) {
+        if (request.method === "GET") {
+          const row = await env.VIEWS_DB.prepare(
+            "SELECT value FROM site_stats WHERE key = ?1",
+          )
+            .bind(TOTAL_VIEWS_KEY)
+            .first<{ value: number }>();
+
+          return json({ totalViews: row?.value ?? 0 });
+        }
+
+        const [, result] = await env.VIEWS_DB.batch<{ value: number }>([
+          env.VIEWS_DB.prepare(
+            `UPDATE site_stats
+             SET value = value + 1, updated_at = CURRENT_TIMESTAMP
+             WHERE key = ?1`,
+          ).bind(TOTAL_VIEWS_KEY),
+          env.VIEWS_DB.prepare(
+            "SELECT value FROM site_stats WHERE key = ?1",
+          ).bind(TOTAL_VIEWS_KEY),
+        ]);
+        const row = result.results[0];
 
         if (!row) {
           throw new Error("Missing total_views row");
         }
 
-        return json({ views: row.value });
+        return json({ totalViews: row.value });
       }
 
-      const [, result] = await env.VIEWS_DB.batch<{ value: number }>([
+      const articleKey = `${ARTICLE_VIEW_KEY_PREFIX}${articlePath}`;
+
+      if (request.method === "GET") {
+        const row = await env.VIEWS_DB.prepare(
+          "SELECT value FROM site_stats WHERE key = ?1",
+        )
+          .bind(articleKey)
+          .first<{ value: number }>();
+
+        return json({ views: row?.value ?? 0 });
+      }
+
+      const [, , , articleResult, totalResult] =
+        await env.VIEWS_DB.batch<{ value: number }>([
+        env.VIEWS_DB.prepare(
+          `INSERT OR IGNORE INTO site_stats (key, value, updated_at)
+           VALUES (?1, 0, CURRENT_TIMESTAMP)`,
+        ).bind(articleKey),
+        env.VIEWS_DB.prepare(
+          `UPDATE site_stats
+           SET value = value + 1, updated_at = CURRENT_TIMESTAMP
+           WHERE key = ?1`,
+        ).bind(articleKey),
         env.VIEWS_DB.prepare(
           `UPDATE site_stats
            SET value = value + 1, updated_at = CURRENT_TIMESTAMP
@@ -74,16 +145,23 @@ export default {
         ).bind(TOTAL_VIEWS_KEY),
         env.VIEWS_DB.prepare(
           "SELECT value FROM site_stats WHERE key = ?1",
+        ).bind(articleKey),
+        env.VIEWS_DB.prepare(
+          "SELECT value FROM site_stats WHERE key = ?1",
         ).bind(TOTAL_VIEWS_KEY),
       ]);
 
-      const row = result.results[0];
+      const articleRow = articleResult.results[0];
+      const totalRow = totalResult.results[0];
 
-      if (!row) {
-        throw new Error("Missing total_views row");
+      if (!articleRow || !totalRow) {
+        throw new Error("Missing views row");
       }
 
-      return json({ views: row.value });
+      return json({
+        views: articleRow.value,
+        totalViews: totalRow.value,
+      });
     } catch {
       return json({ error: "views_unavailable" }, 503);
     }

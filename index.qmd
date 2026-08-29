@@ -20,16 +20,56 @@ listing:
 {{< include includes/profile.qmd >}}
 
 ::: {.notes-panel}
-<p class="section-kicker">A public learning notebook</p>
+# Let’s learn how AI systems work together. {#notes-heading}
 
-# Notes on learning how AI works {#notes-heading}
+<p class="notes-intro">A UWaterloo software engineering student’s blog.</p>
 
-<p class="notes-intro">Small explanations, experiments, and build notes—written while the ideas are still becoming clear.</p>
-
-<div class="editorial-rule" aria-hidden="true"><span></span></div>
+```{=html}
+<div class="notebook-index" aria-label="TalkingML sections">
+<a id="progress" class="notebook-index-item" href="/posts/what-is-talkingml/">
+<span class="notebook-index-number">01</span>
+<strong>Progress</strong>
+<small>Build logs and what I am learning now.</small>
+</a>
+<a id="interviews" class="notebook-index-item" href="/interviews">
+<span class="notebook-index-number">02</span>
+<strong>Interviews</strong>
+<small>Conversations with people doing the work.</small>
+</a>
+<a id="notes" class="notebook-index-item" href="#notes-heading">
+<span class="notebook-index-number">03</span>
+<strong>Notes</strong>
+<small>Explanations, experiments, and useful detours.</small>
+</a>
+<a id="about-lane" class="notebook-index-item" href="/about">
+<span class="notebook-index-number">04</span>
+<strong>About me</strong>
+<small>The student behind TalkingML.</small>
+</a>
+</div>
+```
 
 ::: {#notes-list aria-labelledby="notes-heading"}
 :::
-:::
-:::
 
+::: {.expanded-first-article data-expanded-first-article="true" aria-labelledby="expanded-first-title"}
+```{=html}
+<header class="expanded-first-header">
+<div>
+<p class="expanded-first-kicker">Now reading · First article</p>
+<h2 id="expanded-first-title">What Is TalkingML?</h2>
+<div class="expanded-first-meta-row">
+<p class="expanded-first-meta">Published August 27, 2026</p>
+<p class="expanded-first-view-count" data-home-article-view-count data-article-path="/posts/what-is-talkingml/" hidden><span data-article-views>0</span> <span data-views-label>views</span></p>
+</div>
+</div>
+<a class="expanded-first-page-link" href="/posts/what-is-talkingml/">Article page <span aria-hidden="true">↗</span></a>
+</header>
+```
+
+::: {.expanded-first-body}
+{{< include includes/articles/what-is-talkingml.qmd >}}
+:::
+:::
+:::
+:::

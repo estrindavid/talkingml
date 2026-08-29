@@ -6,7 +6,10 @@ it("returns a stable 503 for GET and POST when D1 is unavailable", async () => {
 
   for (const method of ["GET", "POST"]) {
     const response = await exports.default.fetch(
-      new Request("https://talkingml.com/api/views", { method }),
+      new Request(
+        "https://talkingml.com/api/views?path=%2Fposts%2Fwhat-is-talkingml%2F",
+        { method },
+      ),
     );
 
     expect(response.status).toBe(503);

@@ -44,6 +44,7 @@ describe("static asset fallback", () => {
       expect(response.status).toBe(404);
       expect(html).toContain('src="/site_libs/');
       expect(html).toContain('src="/scripts/views.js"');
+      expect(html).toContain('src="/scripts/reading-progress.js"');
       expect(html).not.toMatch(
         /(?:src|href)="(?:\.\/)?(?:site_libs|assets|scripts)\//,
       );
@@ -53,6 +54,11 @@ describe("static asset fallback", () => {
       new Request("https://talkingml.com/scripts/views.js"),
     );
     expect(script.status).toBe(200);
+
+    const progressScript = await exports.default.fetch(
+      new Request("https://talkingml.com/scripts/reading-progress.js"),
+    );
+    expect(progressScript.status).toBe(200);
   });
 
   it("serves Quarto pages at their canonical extensionless URLs", async () => {

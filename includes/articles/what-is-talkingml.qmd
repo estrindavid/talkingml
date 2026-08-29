@@ -1,0 +1,22 @@
+Hello! My name is David Estrine and I am a Software Engineering student from the University of Waterloo and I made TalkingML to share my journey as I become "cracked" at Machine Learning.
+
+![me enjoying life in first year](/posts/what-is-talkingml/assets/me-c58c04cb.png){fig-alt="me enjoying life in first year" width="25%" fig-align="center"}
+
+Oh yeah, and did I mention that I will be posting a bunch of crazy cool interviews with some of the most talented Machine Learning researchers around the whole world in industries ranging from Cybersecurity, Healthcare, Robotics and Quantum Computing!
+
+The blog will be separated into 2 sections:
+
+- crazy cool interviews
+
+  ![chatting with cracked ML researchers](/posts/what-is-talkingml/assets/screenshot-2026-08-27-at-3-29-52-pm-b5f944f7.png){fig-alt="chatting with cracked ML researchers" width="40%" fig-align="center"}
+- me documenting my journey going from 0 to "cracked"
+
+  ![me locked in at yc startup school 26](/posts/what-is-talkingml/assets/img-3778-0ccc8593.png){fig-alt="me locked in at yc startup school 26" width="40%" fig-align="center"}
+
+soo... go check out my latest progress in my journey [here](</posts/what-is-talkingml/>)
+
+and if you wanna see some crazy interviews check out the latest one [here](</interviews>)
+
+oh and if you are cool and want to contact me / be featured:
+
+[estrinedavid@gmail.com](<mailto:estrinedavid@gmail.com>)

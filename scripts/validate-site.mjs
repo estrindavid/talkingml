@@ -45,14 +45,17 @@ const sourcePostEntries = await readdir(path.resolve("posts"), {
 });
 const hasSourcePosts = sourcePostEntries.some((entry) => entry.isDirectory());
 
-const [index, about, notFound, feed, sitemap, viewsScript, robots] =
+const [index, about, interviews, notFound, firstArticle, feed, sitemap, viewsScript, progressScript, robots] =
   await Promise.all([
     readOutput("index.html"),
     readOutput("about.html"),
+    readOutput("interviews.html").catch(() => ""),
     readOutput("404.html"),
+    readOutput("posts/what-is-talkingml/index.html"),
     readOutput("index.xml"),
     readOutput("sitemap.xml"),
     readOutput("scripts/views.js"),
+    readOutput("scripts/reading-progress.js").catch(() => ""),
     readOutput("robots.txt"),
   ]);
 
@@ -69,6 +72,7 @@ check(
 for (const [name, html] of [
   ["homepage", index],
   ["About page", about],
+  ["Interviews page", interviews],
   ["404 page", notFound],
 ]) {
   check(
@@ -76,8 +80,12 @@ for (const [name, html] of [
     `${name} is missing the TalkingML wordmark`,
   );
   check(
-    html.includes("data-total-views"),
-    `${name} is missing the site-wide view count`,
+    !html.includes("data-total-views") && !html.includes("footer-view-count"),
+    `${name} still renders the removed site-wide view count`,
+  );
+  check(
+    !html.includes("Views unavailable"),
+    `${name} exposes the view-count failure text`,
   );
   check(
     !html.includes("fonts.googleapis.com"),
@@ -85,10 +93,113 @@ for (const [name, html] of [
   );
 }
 
-for (const label of ["Notes", "About", "GitHub"]) {
+for (const label of ["Progress", "Interviews", "Notes", "About"]) {
   check(
     index.includes(`<span class="menu-text">${label}</span>`),
     `homepage navigation is missing ${label}`,
+  );
+}
+
+check(
+  !index.includes("The person in the margin"),
+  "homepage still uses the rejected profile kicker",
+);
+check(
+  !index.includes("A public learning notebook"),
+  "homepage still uses the rejected notebook kicker",
+);
+check(
+  !index.includes('class="field-signal"') && !index.includes("TML / FIELD 01"),
+  "homepage still renders the rejected field-signal decoration",
+);
+check(
+  index.includes("Let’s learn how AI systems work together."),
+  "homepage is missing the approved learning-together heading",
+);
+check(
+  index.includes("data-site-view-count"),
+  "homepage profile is missing the overall view count",
+);
+check(
+  index.includes("data-site-views-label"),
+  "homepage overall view count cannot render a singular label",
+);
+check(
+  index.includes('<span data-site-views-label="">views</span>'),
+  "homepage profile view count still includes the overall qualifier",
+);
+check(
+  index.includes("data-home-article-view-count") &&
+    index.includes('data-article-path="/posts/what-is-talkingml/"'),
+  "homepage expanded article is missing its article-specific view count",
+);
+check(
+  elementText(index, "notes-intro") ===
+    "A UWaterloo software engineering student’s blog.",
+  "homepage is missing the approved UWaterloo subtitle",
+);
+check(
+  !index.includes("Software engineering student · Waterloo"),
+  "homepage still renders the removed profile role",
+);
+check(
+  index.includes('href="https://www.youtube.com/@DavidEstrine/videos"') &&
+    index.includes("David on YouTube"),
+  "homepage profile is missing David's YouTube link",
+);
+check(
+  index.includes('href="https://cal.com/david-estrine-xsm6wb"') &&
+    index.includes("Book a chat"),
+  "homepage profile is missing the calendar booking link",
+);
+check(
+  !index.includes("YouTube <small>soon</small>") &&
+    !index.includes("Calendar <small>soon</small>"),
+  "homepage profile still renders pending social links",
+);
+for (const section of ["progress", "interviews", "notes", "about-lane"]) {
+  check(
+    index.includes(`id="${section}"`),
+    `homepage is missing the ${section} editorial column`,
+  );
+}
+check(
+  index.includes(
+    '<a id="interviews" class="notebook-index-item" href="./interviews">',
+  ),
+  "homepage Interviews column does not link to the Interviews page",
+);
+check(
+  !index.includes("<pre><code>&lt;span class=\"notebook-index-number\"&gt;02"),
+  "homepage Interviews column was rendered as a Markdown code block",
+);
+check(
+  !index.includes('<p><a id="notes" class="notebook-index-item"'),
+  "homepage Notes and About columns were wrapped in an invalid paragraph",
+);
+check(
+  !index.includes('class="editorial-rule"'),
+  "homepage still renders the progress-bar-style divider",
+);
+check(
+  index.includes("Read article"),
+  "homepage article call to action does not say Read article",
+);
+check(
+  index.includes("© 2026 David Estrine. All rights reserved."),
+  "homepage footer is missing the approved copyright copy",
+);
+for (const label of [
+  "GitHub",
+  "LinkedIn",
+  "X",
+  "YouTube",
+  "Resume",
+  "Book a chat",
+]) {
+  check(
+    index.includes(`>${label}<`) || index.includes(`>${label} <`),
+    `homepage profile links are missing ${label}`,
   );
 }
 
@@ -128,8 +239,84 @@ if (hasSourcePosts) {
     "homepage listing does not report a ready state after posts were added",
   );
   check(
-    index.includes('class="notes-list-item"'),
-    "homepage does not render any post list items",
+    index.includes('class="recent-carousel carousel slide"'),
+    "homepage does not render the recent-article carousel",
+  );
+  check(
+    index.includes('data-bs-ride="carousel"') &&
+      index.includes('data-bs-interval="6000"') &&
+      index.includes('data-bs-pause="hover"'),
+    "homepage recent-article carousel does not auto-advance safely",
+  );
+  check(
+    index.includes('class="carousel-indicators"'),
+    "homepage recent-article carousel is missing slide controls",
+  );
+  const carouselItemCount = (index.match(/class="carousel-item/g) ?? []).length;
+  check(
+    carouselItemCount >= 1 && carouselItemCount <= 3,
+    `homepage carousel must render one to three recent articles, found ${carouselItemCount}`,
+  );
+  check(
+    !index.includes('class="notes-list-item"'),
+    "homepage still renders the superseded static article list",
+  );
+  check(
+    !index.includes("data-about-article-feature") &&
+      !index.includes('class="about-feature-person"'),
+    "homepage still renders the removed combined About Me section",
+  );
+check(
+  index.includes("data-expanded-first-article"),
+  "homepage is missing the expanded first-article reader",
+);
+check(
+  !index.includes("/ml-progress#latest") &&
+    index.includes('href="./posts/what-is-talkingml/"'),
+  "homepage latest-progress link does not point to the latest progress article",
+);
+check(
+  !index.includes("/interviews#latest") && index.includes('href="./interviews"'),
+  "homepage latest-interviews link does not point to the Interviews page",
+);
+  check(
+    index.includes(
+      '<p class="expanded-first-kicker">Now reading · First article</p>',
+    ),
+    "homepage expanded article header was not rendered as structured HTML",
+  );
+  check(
+    !index.includes('&lt;p class="expanded-first-kicker"&gt;'),
+    "homepage expanded article header was rendered as a Markdown code block",
+  );
+  check(
+    index.includes("The blog will be separated into 2 sections:") &&
+      index.includes("estrinedavid@gmail.com"),
+    "homepage does not render the complete first article body",
+  );
+  check(
+    firstArticle.includes("The blog will be separated into 2 sections:") &&
+      firstArticle.includes("estrinedavid@gmail.com"),
+    "standalone first article no longer renders the shared article body",
+  );
+  check(
+    index.includes(
+      'src="./posts/what-is-talkingml/assets/me-c58c04cb.png"',
+    ),
+    "homepage expanded article image does not use its canonical post asset",
+  );
+  check(
+    index.indexOf('class="recent-carousel carousel slide"') <
+      index.indexOf("data-expanded-first-article"),
+    "homepage expanded article must follow the recent-articles carousel",
+  );
+  check(
+    !index.includes('href="/posts/what-is-talkingml/content"'),
+    "shared article body was incorrectly listed as a standalone article",
+  );
+  check(
+    !sitemap.includes("/posts/what-is-talkingml/content"),
+    "shared article body was incorrectly published in the sitemap",
   );
 } else {
   check(index.includes("data-empty-listing"), "homepage empty state is missing");
@@ -142,6 +329,14 @@ if (hasSourcePosts) {
     "homepage contains a rendered mock article",
   );
 }
+check(
+  interviews.includes("Oops, there are no interviews here yet :/"),
+  "Interviews page is missing the approved empty-state message",
+);
+check(
+  interviews.includes('rel="canonical" href="https://talkingml.com/interviews"'),
+  "Interviews canonical URL is missing or incorrect",
+);
 check(
   about.includes("<h1>Hi, I’m David.</h1>"),
   "About page heading is missing",
@@ -197,16 +392,47 @@ check(
   "view-count client does not increment on page load",
 );
 check(
+  viewsScript.includes('window.location.pathname'),
+  "view-count client does not bind counts to the current article path",
+);
+check(
   viewsScript.includes("new Intl.NumberFormat()"),
   "view-count client does not format totals with Intl.NumberFormat",
 );
 check(
-  viewsScript.includes('updateViews("Views unavailable", false)'),
-  "view-count client is missing its non-blocking fallback",
+  !viewsScript.includes("Views unavailable"),
+  "view-count client should not display failure text in the page",
 );
 check(
-  viewsScript.includes('querySelectorAll("[data-total-views]")'),
-  "view-count client does not update every visible counter",
+  viewsScript.includes('className = "article-view-count"'),
+  "view-count client does not render an article-level counter",
+);
+check(
+  viewsScript.includes('document.querySelector(".quarto-title-meta")'),
+  "view-count client does not place the counter in the article title metadata",
+);
+check(
+  viewsScript.includes("[data-article-views]"),
+  "view-count client does not update the article counter",
+);
+check(
+  viewsScript.includes("[data-site-view-count]") &&
+    viewsScript.includes("totalViews"),
+  "view-count client does not update the overall site counter",
+);
+check(
+  viewsScript.includes("[data-home-article-view-count]") &&
+    viewsScript.includes("dataset.articlePath"),
+  "view-count client does not credit the expanded homepage article",
+);
+check(
+  !viewsScript.includes("data-total-views"),
+  "view-count client still queries the removed site-wide counters",
+);
+check(
+  progressScript.includes("--page-progress") &&
+    progressScript.includes("requestAnimationFrame"),
+  "reading-progress client does not animate the profile divider from scroll position",
 );
 
 const avatar = await readFile(
@@ -247,13 +473,14 @@ const htmlFiles = topLevelFiles
   .sort();
 check(
   JSON.stringify(htmlFiles) ===
-    JSON.stringify(["404.html", "about.html", "index.html"]),
+    JSON.stringify(["404.html", "about.html", "index.html", "interviews.html"]),
   `unexpected generated HTML pages: ${htmlFiles.join(", ")}`,
 );
 
 for (const [name, html] of [
   ["homepage", index],
   ["About page", about],
+  ["Interviews page", interviews],
   ["404 page", notFound],
 ]) {
   check(
