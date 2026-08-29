@@ -2,23 +2,15 @@
 title: Interviews
 description: "Conversations with people working on machine learning and AI."
 page-layout: full
-body-classes: interviews-page editorial-page
+body-classes: interviews-page archive-page editorial-page
 ---
 
-::: {.editorial-shell .interviews-shell}
-{{< include includes/profile.qmd >}}
+::: {.section-page-shell .interviews-empty-shell}
+::: {.archive-empty aria-labelledby="interviews-empty-title"}
+<p class="archive-empty-number" aria-hidden="true">00</p>
 
-::: {.interviews-panel}
-<p class="section-kicker">Interviews</p>
-
-# Conversations with people doing the work. {#interviews-heading}
-
-::: {.interviews-empty aria-labelledby="interviews-empty-title"}
-<p class="interviews-empty-number" aria-hidden="true">00</p>
-
-## Oops, there are no interviews here yet :/ {#interviews-empty-title}
+# Oops, there are no interviews here yet :/ {#interviews-empty-title}
 
 The first conversation is still being prepared. In the meantime, the [latest article is open on the homepage](/).
-:::
 :::
 :::

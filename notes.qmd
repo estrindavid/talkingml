@@ -1,0 +1,28 @@
+---
+title: Notes
+description: "Explanations, experiments, and useful detours from learning machine learning."
+page-layout: full
+body-classes: notes-archive-page archive-page editorial-page
+listing:
+  id: notes-archive-list
+  contents: posts
+  include:
+    categories: Notes
+  sort: "date desc"
+  filter-ui: false
+  sort-ui: false
+  template: templates/notes-archive.ejs.md
+---
+
+::: {.section-page-shell}
+::: {.archive-header}
+<p class="section-kicker">Notes</p>
+
+# Notes
+
+Explanations, experiments, and useful detours.
+:::
+
+::: {#notes-archive-list aria-label="Notes articles"}
+:::
+:::

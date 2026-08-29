@@ -45,11 +45,12 @@ const sourcePostEntries = await readdir(path.resolve("posts"), {
 });
 const hasSourcePosts = sourcePostEntries.some((entry) => entry.isDirectory());
 
-const [index, about, progress, interviews, notFound, firstArticle, feed, sitemap, viewsScript, progressScript, robots] =
+const [index, about, progress, notes, interviews, notFound, firstArticle, feed, sitemap, viewsScript, progressScript, robots] =
   await Promise.all([
     readOutput("index.html"),
     readOutput("about.html"),
     readOutput("progress.html").catch(() => ""),
+    readOutput("notes.html").catch(() => ""),
     readOutput("interviews.html").catch(() => ""),
     readOutput("404.html"),
     readOutput("posts/what-is-talkingml/index.html"),
@@ -74,6 +75,7 @@ for (const [name, html] of [
   ["homepage", index],
   ["About page", about],
   ["Progress page", progress],
+  ["Notes page", notes],
   ["Interviews page", interviews],
   ["404 page", notFound],
 ]) {
@@ -159,7 +161,7 @@ check(
     !index.includes("Calendar <small>soon</small>"),
   "homepage profile still renders pending social links",
 );
-for (const section of ["progress-lane", "interviews", "notes", "about-lane"]) {
+for (const section of ["progress-lane", "interviews", "notes-lane", "about-lane"]) {
   check(
     index.includes(`id="${section}"`),
     `homepage is missing the ${section} editorial column`,
@@ -174,6 +176,10 @@ check(
     '<a id="interviews" class="notebook-index-item" href="./interviews">',
   ),
   "homepage Interviews column does not link to the Interviews page",
+);
+check(
+  index.includes('<a id="notes-lane" class="notebook-index-item" href="./notes">'),
+  "homepage Notes column does not link to the Notes page",
 );
 check(
   !index.includes("<pre><code>&lt;span class=\"notebook-index-number\"&gt;02"),
@@ -336,12 +342,31 @@ check(
   );
 }
 check(
-  progress.includes("Oops, there are no progress logs here yet :/"),
-  "Progress page is missing its empty-state message",
+  progress.includes('data-archive-state="ready"') &&
+    progress.includes('href="/posts/what-is-talkingml/"') &&
+    progress.includes("What Is TalkingML?"),
+  "Progress page does not list the first Progress article",
 );
 check(
   progress.includes('rel="canonical" href="https://talkingml.com/progress"'),
   "Progress canonical URL is missing or incorrect",
+);
+check(
+  !progress.includes('class="profile-margin"'),
+  "Progress page should not render the profile block",
+);
+check(
+  notes.includes("Oops, there are no notes here yet :/") &&
+    notes.includes('data-archive-state="empty"'),
+  "Notes page is missing its empty state",
+);
+check(
+  notes.includes('rel="canonical" href="https://talkingml.com/notes"'),
+  "Notes canonical URL is missing or incorrect",
+);
+check(
+  !notes.includes('class="profile-margin"'),
+  "Notes page should not render the profile block",
 );
 check(
   interviews.includes("Oops, there are no interviews here yet :/"),
@@ -352,10 +377,27 @@ check(
   "Interviews canonical URL is missing or incorrect",
 );
 check(
-  about.includes("<h1>Hi, I’m David.</h1>"),
-  "About page heading is missing",
+  !interviews.includes('class="profile-margin"') &&
+    !interviews.includes("Conversations with people doing the work."),
+  "Interviews page still renders the removed profile or heading",
 );
-check(about.includes("Margin note"), "About page editorial sidenote is missing");
+check(
+  (about.match(/class="profile-margin"/g) ?? []).length === 1 &&
+    elementText(about, "profile-bio") === approvedBio,
+  "About page does not render exactly one approved profile block",
+);
+check(
+  about.includes("data-site-view-count") &&
+    about.includes("Book a chat") &&
+    about.includes("David on YouTube"),
+  "About page is missing profile links or the view count",
+);
+check(
+  !about.includes("Why TalkingML") &&
+    !about.includes("Margin note") &&
+    !about.includes("What belongs here"),
+  "About page still renders removed editorial content",
+);
 check(
   notFound.includes("This page wandered out of the notebook."),
   "custom 404 copy is missing",
@@ -394,6 +436,10 @@ check(
 check(
   sitemap.includes("https://talkingml.com/progress"),
   "sitemap is missing the Progress page",
+);
+check(
+  sitemap.includes("https://talkingml.com/notes"),
+  "sitemap is missing the Notes page",
 );
 check(
   !sitemap.includes(".html</loc>"),
@@ -491,7 +537,7 @@ const htmlFiles = topLevelFiles
   .sort();
 check(
   JSON.stringify(htmlFiles) ===
-    JSON.stringify(["404.html", "about.html", "index.html", "interviews.html", "progress.html"]),
+    JSON.stringify(["404.html", "about.html", "index.html", "interviews.html", "notes.html", "progress.html"]),
   `unexpected generated HTML pages: ${htmlFiles.join(", ")}`,
 );
 
@@ -499,6 +545,7 @@ for (const [name, html] of [
   ["homepage", index],
   ["About page", about],
   ["Progress page", progress],
+  ["Notes page", notes],
   ["Interviews page", interviews],
   ["404 page", notFound],
 ]) {

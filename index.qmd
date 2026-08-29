@@ -36,7 +36,7 @@ listing:
 <strong>Interviews</strong>
 <small>Conversations with people doing the work.</small>
 </a>
-<a id="notes" class="notebook-index-item" href="#notes-heading">
+<a id="notes-lane" class="notebook-index-item" href="/notes">
 <span class="notebook-index-number">03</span>
 <strong>Notes</strong>
 <small>Explanations, experiments, and useful detours.</small>

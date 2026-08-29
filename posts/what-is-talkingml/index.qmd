@@ -4,7 +4,7 @@ description: Meet David Estrine and discover TalkingML, a public notebook docume
 author: David Estrine
 date: 2026-08-27
 categories:
-  - About
+  - Progress
 image: assets/me-c58c04cb.png
 execute:
   enabled: false
