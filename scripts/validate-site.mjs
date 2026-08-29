@@ -40,6 +40,11 @@ const elementText = (html, className) => {
 const readOutput = async (file) =>
   readFile(path.join(outputDirectory, file), "utf8");
 
+const sourcePostEntries = await readdir(path.resolve("posts"), {
+  withFileTypes: true,
+});
+const hasSourcePosts = sourcePostEntries.some((entry) => entry.isDirectory());
+
 const [index, about, notFound, feed, sitemap, viewsScript, robots] =
   await Promise.all([
     readOutput("index.html"),
@@ -113,15 +118,30 @@ check(
   elementText(about, "profile-bio") === approvedBio,
   "About profile bio does not exactly match the approved copy",
 );
-check(index.includes("data-empty-listing"), "homepage empty state is missing");
-check(
-  index.includes('data-listing-state="empty"'),
-  "homepage listing does not report a genuine empty state",
-);
-check(
-  !index.includes('class="notes-list-item"'),
-  "homepage contains a rendered mock article",
-);
+if (hasSourcePosts) {
+  check(
+    !index.includes("data-empty-listing"),
+    "homepage still shows the empty state after posts were added",
+  );
+  check(
+    index.includes('data-listing-state="ready"'),
+    "homepage listing does not report a ready state after posts were added",
+  );
+  check(
+    index.includes('class="notes-list-item"'),
+    "homepage does not render any post list items",
+  );
+} else {
+  check(index.includes("data-empty-listing"), "homepage empty state is missing");
+  check(
+    index.includes('data-listing-state="empty"'),
+    "homepage listing does not report a genuine empty state",
+  );
+  check(
+    !index.includes('class="notes-list-item"'),
+    "homepage contains a rendered mock article",
+  );
+}
 check(
   about.includes("<h1>Hi, I’m David.</h1>"),
   "About page heading is missing",
@@ -145,7 +165,11 @@ check(
   feed.includes("https://talkingml.com/index.xml"),
   "RSS self link is missing",
 );
-check(!feed.includes("<item>"), "RSS feed contains a mock article");
+if (hasSourcePosts) {
+  check(feed.includes("<item>"), "RSS feed is missing real post items");
+} else {
+  check(!feed.includes("<item>"), "RSS feed contains a mock article");
+}
 check(
   sitemap.includes("<loc>https://talkingml.com/</loc>"),
   "sitemap is missing the canonical homepage URL",
